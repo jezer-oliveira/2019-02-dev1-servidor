@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,14 +9,14 @@ import javax.persistence.Id;
  * @author jezer
  */
 @Entity
-public class Genero implements Entidade {
+public class Fornecedor implements Entidade {
     @Id
     @GeneratedValue(strategy = 
-         GenerationType.IDENTITY)
+          GenerationType.IDENTITY)
     private int id;
     private String nome;
-    private String ncm;
-    private boolean perecivel; 
+    private String cnpj;
+    private String telefone;
 
     public int getId() {
         return id;
@@ -40,20 +34,22 @@ public class Genero implements Entidade {
         this.nome = nome;
     }
 
-    public String getNcm() {
-        return ncm;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setNcm(String ncm) {
-        this.ncm = ncm;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
-    public boolean isPerecivel() {
-        return perecivel;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setPerecivel(boolean perecivel) {
-        this.perecivel = perecivel;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
+    
+    
 
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProdutoRN {
+public class ProdutoRN implements  RegraNegocio<Produto> {
     public void validar(Produto produto) {
         if(produto.getValor()<=0) 
             throw new QuebraRegraNegocio("valor deve ser maior que 0");
@@ -23,6 +23,22 @@ public class ProdutoRN {
             throw new QuebraRegraNegocio("Nome deve ter 3 ou mais letras");
         // Caso seja obrigatorio a embalgem
         //if(produto.getEmbalagem()==null)            throw new QuebraRegraNegocio("Embalagem não pode ser nulo");
+    }
+
+    @Override
+    public void validarCadastrar(Produto entidade) {
+        validar(entidade);
+    }
+
+    @Override
+    public void validarAtualizar(Produto entidadeAtinga, Produto entidadeNova) {
+        validar(entidadeNova);
+    }
+
+    @Override
+    public void validarExcluir(Produto entidade) {
         
     }
+    
+    
 }

@@ -15,12 +15,14 @@ import javax.persistence.Id;
  * @author jezer
  */
 @Entity
-public class Embalagem implements Entidade {
+public class Modelo implements Entidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = 
+           GenerationType.IDENTITY)
     private int id;
-    private String codigoBarra;
-    private float peso;
+    private String nome;
+    private String cor;
+    private String descricao;
 
     public int getId() {
         return id;
@@ -30,20 +32,29 @@ public class Embalagem implements Entidade {
         this.id = id;
     }
 
-    public String getCodigoBarra() {
-        return codigoBarra;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCodigoBarra(String codigoBarra) {
-        this.codigoBarra = codigoBarra;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public float getPeso() {
-        return peso;
+    public String getCor() {
+        return cor;
     }
 
-    public void setPeso(float peso) {
-        this.peso = peso;
+    public void setCor(String cor) {
+        this.cor = cor;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
     
 }

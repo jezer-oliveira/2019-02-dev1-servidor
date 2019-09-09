@@ -6,7 +6,6 @@
 package br.edu.ifrs.restinga.dev1.superLoja.controle;
 
 import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Genero;
-import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Produto;
 import br.edu.ifrs.restinga.dev1.superLoja.modelo.servico.GeneroServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

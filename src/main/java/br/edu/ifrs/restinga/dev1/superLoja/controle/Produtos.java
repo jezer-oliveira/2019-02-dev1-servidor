@@ -5,12 +5,14 @@
  */
 package br.edu.ifrs.restinga.dev1.superLoja.controle;
 
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Fornecedor;
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Modelo;
 import br.edu.ifrs.restinga.dev1.superLoja.modelo.servico.ProdutoServico;
 import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Produto;
-import java.util.Optional;
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.servico.Servico;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,60 +29,74 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jezer
  */
 @RestController
-@RequestMapping("/api")
-public class Produtos {
-    
+@RequestMapping("/api/produtos")
+public class Produtos extends CRUDControle<Produto> {
+
     @Autowired
-    ProdutoServico produtoServico;
-    
-    @PostMapping("/produtos/")
+    ProdutoServico servico;
+
+    @Override
+    public Servico<Produto> getService() {
+        return servico;
+    }
+
+    @PostMapping("/{idProduto}/modelos/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto cadastrarProduto(@RequestBody Produto produto) {
-        return produtoServico.cadastrar(produto);
-    }
-    
-    @GetMapping("/produtos/")
-    @ResponseStatus(HttpStatus.OK)
-    //@RequestMapping(method = RequestMethod.GET, path = "/listarProdutos")
-    public Iterable<Produto> listarProdutos() {
-    return produtoServico.listar();
-    }
-    
-    @PutMapping("/produtos/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarProduto(@PathVariable int id, @RequestBody Produto produto) {
-        produto.setId(id);
-        produtoServico.atualizar(produto);
-    }
-    
-    @DeleteMapping("/produtos/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluirProduto(@PathVariable int id) {
-        produtoServico.excluir(id);
+    public Modelo cadastrarModelo(@PathVariable int idProduto, @RequestBody Modelo modelo) throws Throwable {
+        return servico.cadastrarModelo(idProduto, modelo);
     }
 
-    @GetMapping("/produtos/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Produto recuperarProduto(@PathVariable int id) throws Throwable  {
-         return produtoServico.recuperar(id);
+    @PutMapping("/{idProduto}/modelos/{idModelo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarModelo(@PathVariable int idProduto, @PathVariable int idModelo, @RequestBody Modelo modelo) throws Throwable {
+        modelo.setId(idModelo);
+        servico.atualizarModelo(idProduto, modelo);
     }
 
-        
-    /*
-    @GetMapping("/produtos/{id}")
+    @DeleteMapping("/{idProduto}/modelos/{idModelo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluirModelo(@PathVariable int idProduto, @PathVariable int idModelo) throws Throwable {
+        servico.excluirModelo(idProduto, idModelo);
+    }
+
+    @GetMapping("/{idProduto}/modelos/{idModelo}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Produto> recuperarProduto(@PathVariable int id) {
+    public Modelo recuperarModelo(@PathVariable int idProduto, @PathVariable int idModelo) throws Throwable {
+        return servico.recuperarModelo(idProduto, idModelo);
+    }
+
+    
+    @GetMapping("/{idProduto}/modelos/")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Modelo> listarModelo(@PathVariable int idProduto) throws Throwable {
+        return servico.listarModelo(idProduto);
+    }
+
+    @RequestMapping(path = "/{idProduto}/fornecedores/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void associarFornecedor(@PathVariable int idProduto, @RequestBody Fornecedor fornecedor) throws Throwable {
+        servico.associarFornecedor(idProduto, fornecedor);
         
-        
-        Optional<Produto> optionalProduto = produtoDAO.findById(id);
-        //HttpStatus.OK);
-        if(optionalProduto.isPresent())
-            return ResponseEntity.ok(optionalProduto.get());
-        else 
-            return ResponseEntity.notFound()
-                    //.header("cabecalho-customizado","treco")
-                    //.header("cabecalho-customizado2","treco2")
-                    .build();  //new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        
-    }*/
+    }
+
+    @DeleteMapping("/{idProduto}/fornecedores/{idFornecedor}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void desassociarFornecedor(@PathVariable int idProduto, @PathVariable int idFornecedor) throws Throwable {
+         servico.desassociarFornecedor(idProduto,idFornecedor);
+    }
+
+    
+    @RequestMapping(path = "/{idProduto}/fornecedores/", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Fornecedor> listarFornecedor(@PathVariable int idProduto) throws Throwable {
+        return this.recuperar(idProduto).getFornecedores();
+    }
+    
+    @GetMapping("/{idProduto}/fornecedores/{idFornecedor}")
+    @ResponseStatus(HttpStatus.OK)
+    public Fornecedor recuperarFornecedor(@PathVariable int idProduto, @PathVariable int idFornecedor) throws Throwable {
+        return servico.recuperarFornecedor(idProduto,idFornecedor);
+    }
+    
+
 }

@@ -5,9 +5,9 @@
  */
 package br.edu.ifrs.restinga.dev1.superLoja.modelo.servico;
 
-import br.edu.ifrs.restinga.dev1.superLoja.modelo.dao.GeneroDAO;
-import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Genero;
-import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Produto;
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.dao.FornecedorDAO;
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.entidade.Fornecedor;
+import br.edu.ifrs.restinga.dev1.superLoja.modelo.rn.FornecedorRN;
 import br.edu.ifrs.restinga.dev1.superLoja.modelo.rn.RegraNegocio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -18,18 +18,22 @@ import org.springframework.stereotype.Component;
  * @author jezer
  */
 @Component
-public class GeneroServico extends Servico<Genero>{
+public class FornecedorServico extends  Servico<Fornecedor> {
+
     @Autowired
-    GeneroDAO generoDAO;
+    FornecedorDAO dao;
     
+    @Autowired
+    FornecedorRN regraNegocio;
+
     @Override
-    public CrudRepository<Genero, Integer> getDAO() {
-        return generoDAO;
+    public CrudRepository<Fornecedor, Integer> getDAO() {
+        return  dao;
     }
 
     @Override
-    public RegraNegocio<Genero> getRegraNegocio() {
-        return null;
+    public RegraNegocio<Fornecedor> getRegraNegocio() {
+        return regraNegocio;
     }
-
+   
 }
