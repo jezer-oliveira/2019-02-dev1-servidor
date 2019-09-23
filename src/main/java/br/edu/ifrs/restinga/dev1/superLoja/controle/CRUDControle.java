@@ -26,7 +26,7 @@ public abstract class CRUDControle<T extends Entidade> {
     
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public T cadastrar(@RequestBody T entidade) {
+    public T cadastrar(@RequestBody T entidade)  throws Throwable {
         return getService().cadastrar(entidade);
     }
     
@@ -38,7 +38,7 @@ public abstract class CRUDControle<T extends Entidade> {
     
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizar(@PathVariable int id, @RequestBody T entidade) {
+    public void atualizar(@PathVariable int id, @RequestBody T entidade)  throws Throwable {
         entidade.setId(id);
         getService().atualizar(entidade);
     }

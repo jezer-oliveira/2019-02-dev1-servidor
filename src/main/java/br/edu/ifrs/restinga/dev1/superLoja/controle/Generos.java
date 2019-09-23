@@ -29,7 +29,7 @@ public class Generos {
     
     @PostMapping("/generos/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Genero cadastrarGenero(@RequestBody Genero genero) {
+    public Genero cadastrarGenero(@RequestBody Genero genero)  throws Throwable {
         return generoServico.cadastrar(genero);
     }
     

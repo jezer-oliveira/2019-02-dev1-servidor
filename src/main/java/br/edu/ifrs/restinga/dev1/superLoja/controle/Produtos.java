@@ -97,6 +97,26 @@ public class Produtos extends CRUDControle<Produto> {
     public Fornecedor recuperarFornecedor(@PathVariable int idProduto, @PathVariable int idFornecedor) throws Throwable {
         return servico.recuperarFornecedor(idProduto,idFornecedor);
     }
+
+    @GetMapping("/pesquisar/nome/inicia/{nome}")
+    public List<Produto> findByNomeStartingWith(@PathVariable String nome) {
+        return servico.findByNomeStartingWith(nome);
+    }
+
+    @GetMapping("/pesquisar/genero/naoNulo")
+    public List<Produto> findByGeneroIsNotNull() {
+        return servico.findByGeneroIsNotNull();
+    }
+
+    @GetMapping("/pesquisar/genero/nome/{nome}")
+    public List<Produto> findByGeneroNomeStartingWith(@PathVariable String nome) {
+        return servico.findByGeneroNomeStartingWith(nome);
+    }
+    @GetMapping("/pesquisar/fornecedores/nome/{nome}")
+    public List<Produto> findByFornecedoresNomeStartingWith(@PathVariable String nome) {
+        return servico.findByFornecedoresNomeStartingWith(nome);
+    }
+    
     
 
 }

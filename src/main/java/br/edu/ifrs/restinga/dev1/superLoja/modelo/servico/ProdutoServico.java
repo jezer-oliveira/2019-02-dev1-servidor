@@ -146,4 +146,25 @@ public class ProdutoServico extends Servico<Produto> {
         throw new NaoEncontrado("id " + id + " não foi encontrada");
     }
 
+        /// pesquisas 
+
+    public List<Produto> findByNomeStartingWith(String nome) {
+        return produtoDAO.findByNomeStartingWith(nome);
+    }
+
+    public List<Produto> findByGeneroIsNotNull() {
+        return produtoDAO.findByGeneroIsNotNull();
+    }
+
+    public List<Produto> findByGeneroNomeStartingWith(String nome) {
+        return produtoDAO.findByGeneroNomeStartingWith(nome);
+    }
+
+    public List<Produto> findByFornecedoresNomeStartingWith(String nome) {
+        return produtoDAO.findByFornecedoresNomeStartingWith(nome);
+    }
+       
+        
+        
+        
 }

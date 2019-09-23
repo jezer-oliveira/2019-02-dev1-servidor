@@ -16,7 +16,7 @@ public abstract class Servico<T extends Entidade> {
     public abstract CrudRepository<T, Integer> getDAO();
     public abstract RegraNegocio<T> getRegraNegocio();
 
-    public T cadastrar(T entidade) {
+    public T cadastrar(T entidade) throws Throwable {
         entidade.setId(0);
         if(getRegraNegocio()!=null)
             getRegraNegocio().validarCadastrar(entidade);
@@ -28,7 +28,7 @@ public abstract class Servico<T extends Entidade> {
         return getDAO().findAll();
     }
 
-    public void atualizar(T entidade) {
+    public void atualizar(T entidade)  throws Throwable {
         if(getRegraNegocio()!=null) {
             T entidadeAntiga = getDAO().findById(entidade.getId()).get();
             getRegraNegocio().validarAtualizar(entidadeAntiga, entidade);
