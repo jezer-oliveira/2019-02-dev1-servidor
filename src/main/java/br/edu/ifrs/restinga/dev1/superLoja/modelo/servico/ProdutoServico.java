@@ -61,7 +61,13 @@ public class ProdutoServico extends Servico<Produto> {
     }
 
     @Override
-    public void atualizar(Produto produto) {
+    public void atualizar(Produto produtoNovo) {
+        Optional<Produto> findById = produtoDAO.findById(produtoNovo.getId());
+        Produto produto = findById.get();
+        produto.setNome(produtoNovo.getNome());
+        produto.setValor(produtoNovo.getValor());
+        produto.setEmbalagem(produto.getEmbalagem());
+        produto.setGenero(produtoNovo.getGenero());
         produtoRN.validar(produto);
         if (produto.getEmbalagem() != null) {
             embalagemDAO.save(produto.getEmbalagem());
