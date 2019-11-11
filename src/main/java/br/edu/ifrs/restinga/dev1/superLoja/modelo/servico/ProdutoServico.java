@@ -66,7 +66,11 @@ public class ProdutoServico extends Servico<Produto> {
         Produto produto = findById.get();
         produto.setNome(produtoNovo.getNome());
         produto.setValor(produtoNovo.getValor());
-        produto.setEmbalagem(produto.getEmbalagem());
+        if(produtoNovo.getEmbalagem()!=null&&produto.getEmbalagem()!=null) {
+            produto.getEmbalagem().setCodigoBarra(produtoNovo.getEmbalagem().getCodigoBarra());
+            produto.getEmbalagem().setPeso(produtoNovo.getEmbalagem().getPeso());
+        } else 
+            produto.setEmbalagem(produtoNovo.getEmbalagem());
         produto.setGenero(produtoNovo.getGenero());
         produtoRN.validar(produto);
         if (produto.getEmbalagem() != null) {
